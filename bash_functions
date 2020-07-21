@@ -4,7 +4,7 @@ branch ()
         echo "Invalid arguments supplied: <user alias><user branch>[<local branch>]";
         return 0;
     fi;
-    repository=$(basename `git rev-parse --show-toplevel`);
+    repository=$(basename -s .git `git config --get remote.origin.url`);
     localbranch=${2};
     if [ $# -gt 2 ]; then
         localbranch=${3};
