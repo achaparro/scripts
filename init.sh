@@ -1,4 +1,3 @@
 #!/bin/bash
 
-#. ~/code/scripts/initYakuake.sh
-subl
+. ~/code/scripts/initYakuake.sh
