@@ -221,6 +221,21 @@ rmstate ()
     rm -r /home/achaparro/servers/${server}/osgi/state/*
 }
 
+rmstate72 ()
+{
+    rmstate 7.2
+}
+
+rmstate71 ()
+{   
+    rmstate 7.1 
+}
+
+rmstate70 ()
+{   
+    rmstate 7.0 
+}
+
 sqlserver () 
 { 
     DRIVERS_FOLDER=/home/achaparro/drivers/SqlServer ${MCD_RD_CLONE_PATH}/database/mssql
@@ -240,24 +255,9 @@ tar-unzip ()
     tar -xzf ${1}
 }
 
-test-class () 
+testintegration () 
 { 
-    if [ $# -ne 3 ]; then
-        echo "Arguments: <ClassName><Debug[true|false]><DropDatabase[true|false]>";
-        return 0;
-    fi;
-    if [ $2 != true ] && [ $2 != false ]; then
-        echo "Second argument value must be true or false";
-        return 0;
-    fi;
-    if [ $3 != true ] && [ $3 != false ]; then
-        echo "Third argument value must be true or false";
-        return 0;
-    fi;
-    if [ $3 = true ]; then
-        db-regen lportal_test;
-    fi;
-    ant test-class -Dtest.class="$1" -Djvm.debug=$2
+    gw testIntegration --tests '$1'
 }
 
 testc () 
