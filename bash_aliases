@@ -15,4 +15,3 @@ alias mvn=/home/achaparro/software/apache-maven-3.6.1/bin/mvn
 alias gpum='git pull upstream master'
 alias restartplasma='killall plasmashell && kstart plasmashell'
 alias submitpull='gh pr --submit achaparro'
-alias checkoutmaster='git checkout master && git pull upstream master && git push origin master'

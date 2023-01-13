@@ -249,7 +249,7 @@ sybase ()
 tar-unzip () 
 { 
     if [ $# -ne 1 ]; then
-        echo "Arguments: <database_name> <file_location>";
+        echo "Arguments: <file_location>";
         return 0;
     fi;
     tar -xzf ${1}
@@ -357,6 +357,10 @@ upgrade-shell ()
     ./db_upgrade.sh -s -j "-Xmx3000m -Dfile.encoding=UTF8 -Duser.timezone=GMT -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=${suspend},address=${port}"
 }
 
+upgrade-debug-client () {
+    java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8001 -jar com.liferay.portal.tools.db.upgrade.client.jar
+}
+
 upgradeTimes () 
 { 
     UPGRADELOGFILE=$1;
@@ -386,3 +390,47 @@ snapshot ()
 	echo "Executing snapshot bundle..."
 	ant snapshot-bundle -Dmirrors.username=${lruser} -Dmirrors.password=${lrpassword}
 }
+
+# Updates master and rebase current branch
+rebasemaster ()
+{
+    currentBranch=$(git rev-parse --abbrev-ref HEAD)
+    git checkout master
+    git pull upstream master
+    git push origin master
+    git checkout ${currentBranch}
+    git rebase master
+}
+
+docker-dxp ()
+{
+    if [ $# -ne 1 ]; then
+         echo "Arguments: <dxp_tag_name>";
+         return 0;
+    fi;
+
+    docker run --rm -it -m 8g -p 8080:8080 --network=host -v /home/achaparro/docker/liferay:/mnt/liferay liferay/dxp:$1
+}
+
+sendBrian ()
+{
+    if [ $# -ne 1 ]; then
+         echo "Arguments: <PR title>";
+         return 0;
+    fi;
+
+    output=$(gh sendPortalPR achaparro Pepito -t $1 -b "" | tail -n 0)
+    echo ${output}
+}
+
+check-port ()
+{
+    if [ $# -ne 1 ]; then
+         echo "Arguments: <port>";
+         return 0;
+    fi;
+
+    sudo lsof -i:$1	
+}
+
+
