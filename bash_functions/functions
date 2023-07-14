@@ -38,7 +38,7 @@ clean-mysql ()
         echo "Invalid arguments supplied: <original database name>";
         return 0;
     fi;
-    mysql -uroot -ptoor -Bse "drop database if exists ${1};create database ${1} character set utf8;";
+    mysql -uroot -pToor123@ -Bse "drop database if exists ${1};create database ${1} character set utf8;";
     echo "Database ${1} recreated"
 }
 
@@ -66,11 +66,11 @@ copy-db-mysql ()
     fi;
     tempfile="/tmp/${1}.sql";
     echo "Dumping [${1}] database to ${tempfile}";
-    mysqldump -uroot -ptoor ${1} > ${tempfile};
+    mysqldump -uroot -pToor123@ ${1} > ${tempfile};
     echo "${tempfile} generated";
-    mysql -uroot -ptoor -Bse "drop database if exists ${targetdatabase};create database ${targetdatabase} character set utf8;";
+    mysql -uroot -pToor123@ -Bse "drop database if exists ${targetdatabase};create database ${targetdatabase} character set utf8;";
     echo "Database ${targetdatabase} recreated";
-    mysql ${targetdatabase} -uroot -ptoor < ${tempfile};
+    mysql ${targetdatabase} -uroot -pToor123@ < ${tempfile};
     echo "Dump imported in database ${targetdatabase}";
     rm ${tempfile}
 }
@@ -125,12 +125,12 @@ db2 ()
 
 disable-mysql-log () 
 { 
-    mysql -uroot -ptoor -e "SET GLOBAL general_log = 'OFF';"
+    mysql -uroot -pToor123@ -e "SET GLOBAL general_log = 'OFF';"
 }
 
 enable-mysql-log () 
 { 
-    mysql -uroot -ptoor -e "SET GLOBAL general_log = 'ON';"
+    mysql -uroot -pToor123@ -e "SET GLOBAL general_log = 'ON';"
 }
 
 git-clean-safec () 
@@ -175,8 +175,8 @@ import-mysql ()
         echo "Arguments: <database_name> <file_location>";
         return 0;
     fi;
-    mysql -uroot -ptoor -Bse "drop database if exists ${1};create database ${1} character set utf8;";
-    mysql -u root -ptoor ${1} < ${2}
+    mysql -uroot -pToor123@ -Bse "drop database if exists ${1};create database ${1} character set utf8;";
+    mysql -u root -pToor123@ ${1} < ${2}
 }
 
 mysql7 () 
