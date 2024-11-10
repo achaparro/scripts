@@ -38,7 +38,7 @@ clean-mysql ()
         echo "Invalid arguments supplied: <original database name>";
         return 0;
     fi;
-    mysql -uroot -pToor123@ -Bse "drop database if exists ${1};create database ${1} character set utf8;";
+    mysql -uroot -pToor123# -Bse "drop database if exists ${1};create database ${1} character set utf8;";
     echo "Database ${1} recreated"
 }
 
@@ -66,11 +66,11 @@ copy-db-mysql ()
     fi;
     tempfile="/tmp/${1}.sql";
     echo "Dumping [${1}] database to ${tempfile}";
-    mysqldump -uroot -pToor123@ ${1} > ${tempfile};
+    mysqldump -uroot -pToor123# ${1} > ${tempfile};
     echo "${tempfile} generated";
-    mysql -uroot -pToor123@ -Bse "drop database if exists ${targetdatabase};create database ${targetdatabase} character set utf8;";
+    mysql -uroot -pToor123# -Bse "drop database if exists ${targetdatabase};create database ${targetdatabase} character set utf8;";
     echo "Database ${targetdatabase} recreated";
-    mysql ${targetdatabase} -uroot -pToor123@ < ${tempfile};
+    mysql ${targetdatabase} -uroot -pToor123# < ${tempfile};
     echo "Dump imported in database ${targetdatabase}";
     rm ${tempfile}
 }
@@ -110,8 +110,8 @@ copy-dl ()
             return 0;
         fi;
     fi;
-    originalPath=/home/achaparro/servers/${1}/data/document_library/;
-    finalPath=/home/achaparro/servers/${targetserver}/data/document_library/;
+    originalPath=/home/albertochaparro/servers/${1}/data/document_library/;
+    finalPath=/home/albertochaparro/servers/${targetserver}/data/document_library/;
     rm -r ${finalPath}*;
     echo "Document library in ${finalPath} cleaned";
     cp -r ${originalPath}* ${finalPath};
@@ -120,17 +120,17 @@ copy-dl ()
 
 db2 () 
 { 
-    DRIVERS_FOLDER=/home/achaparro/drivers/Db2 ${MCD_RD_CLONE_PATH}/database/db2
+    DRIVERS_FOLDER=/home/albertochaparro/drivers/Db2 ${MCD_RD_CLONE_PATH}/database/db2
 }
 
 disable-mysql-log () 
 { 
-    mysql -uroot -pToor123@ -e "SET GLOBAL general_log = 'OFF';"
+    mysql -uroot -pToor123# -e "SET GLOBAL general_log = 'OFF';"
 }
 
 enable-mysql-log () 
 { 
-    mysql -uroot -pToor123@ -e "SET GLOBAL general_log = 'ON';"
+    mysql -uroot -pToor123# -e "SET GLOBAL general_log = 'ON';"
 }
 
 git-clean-safec () 
@@ -162,7 +162,7 @@ idea-modules-delete ()
     sed -i '/^.*group="'$MODULE_GROUP'".*$/d' $MODULES_FILE
 }
 
-IJ_CLONE_PATH=/home/achaparro/code/liferay-intellij
+IJ_CLONE_PATH=/home/albertochaparro/code/liferay-intellij
 
 ij () 
 { 
@@ -175,18 +175,18 @@ import-mysql ()
         echo "Arguments: <database_name> <file_location>";
         return 0;
     fi;
-    mysql -uroot -pToor123@ -Bse "drop database if exists ${1};create database ${1} character set utf8;";
-    mysql -u root -pToor123@ ${1} < ${2}
+    mysql -uroot -pToor123# -Bse "drop database if exists ${1};create database ${1} character set utf8;";
+    mysql -u root -pToor123# ${1} < ${2}
 }
 
 mysql7 () 
 { 
-    DRIVERS_FOLDER=/home/achaparro/drivers ${MCD_RD_CLONE_PATH}/database/mysql
+    DRIVERS_FOLDER=/home/albertochaparro/drivers ${MCD_RD_CLONE_PATH}/database/mysql
 }
 
 oracle () 
 { 
-    DRIVERS_FOLDER=/home/achaparro/drivers/Oracle ${MCD_RD_CLONE_PATH}/database/oracle
+    DRIVERS_FOLDER=/home/albertochaparro/drivers/Oracle ${MCD_RD_CLONE_PATH}/database/oracle
 }
 
 pdf-grep () 
@@ -218,7 +218,7 @@ rmstate ()
     if [ $# -eq 1 ]; then
         server=${1};
     fi;
-    rm -r /home/achaparro/servers/${server}/osgi/state/*
+    rm -r /home/albertochaparro/servers/${server}/osgi/state/*
 }
 
 rmstate72 ()
@@ -238,12 +238,12 @@ rmstate70 ()
 
 sqlserver () 
 { 
-    DRIVERS_FOLDER=/home/achaparro/drivers/SqlServer ${MCD_RD_CLONE_PATH}/database/mssql
+    DRIVERS_FOLDER=/home/albertochaparro/drivers/SqlServer ${MCD_RD_CLONE_PATH}/database/mssql
 }
 
 sybase () 
 { 
-    DRIVERS_FOLDER=/home/achaparro/drivers/Sybase ${MCD_RD_CLONE_PATH}/database/sybase
+    DRIVERS_FOLDER=/home/albertochaparro/drivers/Sybase ${MCD_RD_CLONE_PATH}/database/sybase
 }
 
 tar-unzip () 
@@ -409,7 +409,7 @@ docker-dxp ()
          return 0;
     fi;
 
-    docker run --rm -it -m 8g -p 8080:8080 --network=host -v /home/achaparro/docker/liferay:/mnt/liferay liferay/dxp:$1
+    docker run --rm -it -m 8g -p 8080:8080 --network=host -v /home/albertochaparro/docker/liferay:/mnt/liferay liferay/dxp:$1
 }
 
 sendBrian ()

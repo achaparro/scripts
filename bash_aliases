@@ -12,6 +12,7 @@ alias t=todo.sh
 alias please='sudo $(fc -ln -1)'
 alias dxp-profile='ant setup-profile-dxp'
 alias startdocker='sudo systemctl start docker'
+alias geminiauth='gcloud auth application-default login'
 #alias mvn=/home/achaparro/software/apache-maven-3.6.1/bin/mvn
 #alias gpum='git pull upstream master'
 #alias restartplasma='killall plasmashell && kstart plasmashell'
