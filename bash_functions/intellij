@@ -1,0 +1,6 @@
+#!/bin/bash
+
+intellij ()
+{
+    nohup "${HOME}/.local/share/JetBrains/Toolbox/scripts/idea" "${1:-.}" > /dev/null 2>&1 &
+}
